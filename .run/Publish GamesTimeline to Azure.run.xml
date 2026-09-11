@@ -1,0 +1,17 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Publish GamesTimeline to Azure" type="AzureWebAppDeploy">
+    <option name="appServicePlanName" value="ASP-GameQuiz-ae18" />
+    <option name="appServicePlanResourceGroupName" value="GameQuiz" />
+    <option name="operatingSystem" value="Linux" />
+    <option name="pricingSize" value="F1" />
+    <option name="pricingTier" value="Free" />
+    <option name="projectConfiguration" value="Release" />
+    <option name="projectPlatform" value="Any CPU" />
+    <option name="publishableProjectPath" value="$PROJECT_DIR$/GamesTimeline/GamesTimeline.csproj" />
+    <option name="region" value="swedencentral" />
+    <option name="resourceGroupName" value="GameQuiz" />
+    <option name="subscriptionId" value="20fd9c5f-ba1e-496d-a287-3ca0a0fcce44" />
+    <option name="webAppName" value="GamesTimeline" />
+    <method v="2" />
+  </configuration>
+</component>
