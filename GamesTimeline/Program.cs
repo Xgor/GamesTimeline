@@ -18,6 +18,10 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+var configuration = new ConfigurationBuilder()
+    .AddUserSecrets<Program>()
+    .Build();
+
 app.MapStaticAssets();
 
 app.MapControllerRoute(

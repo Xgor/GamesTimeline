@@ -4,6 +4,11 @@
         <TargetFramework>net10.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+        <UserSecretsId>309349f2-d0f6-4d59-abb2-c40a94f2b95e</UserSecretsId>
     </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="IGDB" Version="6.1.0" />
+    </ItemGroup>
 
 </Project>
