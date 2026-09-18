@@ -1,3 +1,4 @@
+using GamesTimeline.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using IGDB;
 using IGDB.Models;
@@ -27,10 +28,33 @@ public class GamesController : Controller
         var game = await GetRandomGameAsync();
         var game2 = await GetRandomGameAsync();
    
-        Console.WriteLine($"game {game.Id}: {game.Name}: {game.FirstReleaseDate}");
-        return View();
+        var viewModel = new WhatCameFirstViewModel()
+        {
+            Game1 = game,
+            Game2 = game2
+        };
+        return View(viewModel);
     }
 
+    public async Task<ActionResult> Results(DateTimeOffset game1,DateTimeOffset game2, string choice)
+    {
+        bool correct = false;
+        switch (choice)
+        {
+            case "1":
+                correct = game1 < game2;
+                break;
+            case "2":
+                correct = game2 < game1;
+                break;  
+        }
+        TempData["Message"] = correct ? "Correct" : "Incorrect";
+        
+        return RedirectToAction(nameof(Index));
+    }
+    
+    
+    
     public async Task<Game> GetRandomGameAsync()
     {
         var rng = new Random().Next(0, GAMES_COUNT);

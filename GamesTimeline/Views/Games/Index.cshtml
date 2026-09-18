@@ -1,3 +1,4 @@
+@model GamesTimeline.ViewModels.WhatCameFirstViewModel;
 
 @{
     ViewData["Title"] = "Games";
@@ -11,7 +12,24 @@
 </head>
 <body>
 <div>
-      Hello
+    <p>@TempData["Message"]</p>
+    <p>Score: @Html.DisplayFor(model => model.Score)</p>
+    <div class="col-sm-6">
+        <p>@Html.DisplayFor(model => model.Game1.Name)</p>
+        <a asp-action="Results" 
+           asp-route-game1="@Model.Game1.FirstReleaseDate" 
+           asp-route-game2="@Model.Game2.FirstReleaseDate" 
+           asp-route-choice="1" 
+           class="btn btn-sm btn-outline-secondary">This Came First</a>
+    </div>
+    <div class="col-sm-6">
+        <p>@Html.DisplayFor(model => model.Game2.Name)</p>
+        <a asp-action="Results" 
+           asp-route-game1="@Model.Game1.FirstReleaseDate" 
+           asp-route-game2="@Model.Game2.FirstReleaseDate" 
+           asp-route-choice="2" 
+           class="btn btn-sm btn-outline-secondary">This Came First</a>
+    </div>
 </div>
 </body>
 </html>
