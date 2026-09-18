@@ -12,6 +12,8 @@ public class GamesController : Controller
     private readonly IConfiguration _config;
     private readonly IGDBClient _igdbClient;
 
+    private static int score = 0;
+    
     public const int GAMES_COUNT = 375811; // Get this dynamic later
     public GamesController(IConfiguration config)
     {
@@ -25,14 +27,20 @@ public class GamesController : Controller
 
     public async Task<ActionResult> Index()
     {
+      //  var games = await _igdbClient.QueryAsync<Game>(IGDBClient.Endpoints.Games, query: $"fields *; where id = {358};");
+      //  var game = games.FirstOrDefault();
         var game = await GetRandomGameAsync();
         var game2 = await GetRandomGameAsync();
-   
+            
         var viewModel = new WhatCameFirstViewModel()
         {
             Game1 = game,
-            Game2 = game2
+            Game2 = game2,
+            Score = score,
         };
+        viewModel.gameCoverUrl = await GetCoverUrlAsync(game);
+        viewModel.game2CoverUrl = await GetCoverUrlAsync(game2);
+        
         return View(viewModel);
     }
 
@@ -50,6 +58,9 @@ public class GamesController : Controller
         }
         TempData["Message"] = correct ? "Correct" : "Incorrect";
         
+        if (correct) score++;
+        else score = 0;
+        
         return RedirectToAction(nameof(Index));
     }
     
@@ -61,10 +72,27 @@ public class GamesController : Controller
         Game? game = null;
         do
         {
-            var games = await _igdbClient.QueryAsync<Game>(IGDBClient.Endpoints.Games, query: $"fields name,first_release_date; where id = {rng};");
+            var games = await _igdbClient.QueryAsync<Game>(IGDBClient.Endpoints.Games, query: $"fields name,first_release_date,cover; where id = {rng};");
             game = games.FirstOrDefault();
         } while (game == null);
 
         return game;
+    }
+
+    public async Task<string> GetCoverUrlAsync(Game game)
+    {
+        string coverUrl = "";
+        if (game.Cover != null)
+        {  
+            var covers = await _igdbClient.QueryAsync<Cover>(IGDBClient.Endpoints.Covers, query: $"fields *; where id = {game.Cover.Id};");
+            var cover = covers.FirstOrDefault();
+            if (cover != null)
+            {
+                coverUrl = cover.Url;
+                coverUrl = coverUrl.Replace("t_thumb", "t_cover_big");
+            }
+        }
+
+        return coverUrl;
     }
 }

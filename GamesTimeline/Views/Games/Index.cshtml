@@ -14,21 +14,25 @@
 <div>
     <p>@TempData["Message"]</p>
     <p>Score: @Html.DisplayFor(model => model.Score)</p>
-    <div class="col-sm-6">
-        <p>@Html.DisplayFor(model => model.Game1.Name)</p>
-        <a asp-action="Results" 
-           asp-route-game1="@Model.Game1.FirstReleaseDate" 
-           asp-route-game2="@Model.Game2.FirstReleaseDate" 
-           asp-route-choice="1" 
-           class="btn btn-sm btn-outline-secondary">This Came First</a>
-    </div>
-    <div class="col-sm-6">
-        <p>@Html.DisplayFor(model => model.Game2.Name)</p>
-        <a asp-action="Results" 
-           asp-route-game1="@Model.Game1.FirstReleaseDate" 
-           asp-route-game2="@Model.Game2.FirstReleaseDate" 
-           asp-route-choice="2" 
-           class="btn btn-sm btn-outline-secondary">This Came First</a>
+    <div class="d-flex gap-3 flex-wrap">
+        <div class="col-4">
+            <img src="@Model.gameCoverUrl" alt="No Cover">
+            <p>@Html.DisplayFor(model => model.Game1.Name)</p>
+            <a asp-action="Results"
+               asp-route-game1="@Model.Game1.FirstReleaseDate"
+               asp-route-game2="@Model.Game2.FirstReleaseDate"
+               asp-route-choice="1"
+               class="btn btn-sm btn-primary">This Came First</a>
+        </div>
+        <div class="col-4">
+            <img src="@Model.game2CoverUrl" alt="No Cover">
+            <p>@Html.DisplayFor(model => model.Game2.Name)</p>
+            <a asp-action="Results"
+               asp-route-game1="@Model.Game1.FirstReleaseDate"
+               asp-route-game2="@Model.Game2.FirstReleaseDate"
+               asp-route-choice="2"
+               class="btn btn-sm btn-primary">This Came First</a>
+        </div>
     </div>
 </div>
 </body>
