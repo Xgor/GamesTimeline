@@ -1,0 +1,136 @@
+@page "/"
+@using IGDB
+@using IGDB.Models
+<h3>Game</h3>
+
+<html>
+<head>
+    <title>Game tests</title>
+</head>
+<body>
+<div>
+    <p>"Message"</p>
+    <p>Score: @Score</p>
+    <div class="d-flex gap-3 flex-wrap">
+        <div class="col-4">
+            <img src="@gameCoverUrl" alt="No Cover">
+            <p>@Game1.Name</p>
+            <button class="btn btn-outline-primary btn-sm"
+                    type="button"
+                    @onclick='@(e => Results("1"))'>
+                This Came First
+            </button>
+            @*
+            <button asp-action="Results"
+                    asp-route-game1="@Game1.FirstReleaseDate"
+                    asp-route-game2="@Game2.FirstReleaseDate"
+                    asp-route-choice="1"
+                    class="btn btn-sm btn-primary">This Came First</button>
+            *@
+        </div>
+        <div class="col-4">
+            <img src="@game2CoverUrl" alt="No Cover">
+            <p>@Game2.Name</p>
+            <button class="btn btn-outline-primary btn-sm"
+                    type="button"
+                    @onclick='@(e => Results("2"))'>
+                This Came First
+            </button>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+@code {
+    public Game Game1 { get; set; } = new();
+    public string gameCoverUrl { get; set; }
+    public Game Game2 { get; set; } = new();
+    public string game2CoverUrl { get; set; }
+    public int Score { get; set; } = 0;
+    public string Messsage { get; set; } = "";
+
+    protected async override Task OnInitializedAsync()
+    {
+        base.OnInitialized();
+        await GetNewGames();
+    }
+    private async Task GetNewGames()
+    {
+        Game1 = await GetRandomGameAsync();
+        Game2 = await GetRandomGameAsync();
+        
+        gameCoverUrl = await GetCoverUrlAsync(Game1);
+        game2CoverUrl = await GetCoverUrlAsync(Game2);
+    }
+    private readonly IConfiguration _config;
+    private readonly IGDBClient _igdbClient;
+
+    private static int score = 0;
+    
+    public const int GAMES_COUNT = 375811; // Get this dynamic later
+    public OldestGame(IConfiguration config)
+    {
+        _config = config;
+        
+        _igdbClient = IGDBClient.CreateWithDefaults(
+            // Found in Twitch Developer portal for your app
+            _config["IGDB_CLIENT_ID"], 
+            _config["IGDB_CLIENT_SECRET"]);
+    }
+
+    public void hello()
+    {
+        Console.WriteLine("hello");
+    }
+    public async Task Results( string choice)
+    {
+        bool correct = false;
+        switch (choice)
+        {
+            case "1":
+                correct = Game1.FirstReleaseDate < Game2.FirstReleaseDate;
+                break;
+            case "2":
+                correct = Game2.FirstReleaseDate < Game1.FirstReleaseDate;
+                break;  
+        }
+        Messsage = correct ? "Correct" : "Incorrect";
+        
+        if (correct) score++;
+        else score = 0;
+        
+     //   return RedirectToAction(nameof(Index));
+    }
+    
+    public async Task<Game> GetRandomGameAsync()
+    {
+        Game? game = null;
+        do
+        {
+            var rng = new Random().Next(0, GAMES_COUNT);
+            var games = await _igdbClient.QueryAsync<Game>(
+                IGDBClient.Endpoints.Games, 
+                query: $"fields name,first_release_date,cover; where id = {rng};");
+            game = games.FirstOrDefault();
+        } while (game == null);
+
+        return game;
+    }
+    public async Task<string> GetCoverUrlAsync(Game game)
+    {
+        string coverUrl = "";
+        if (game.Cover != null)
+        {  
+            var covers = await _igdbClient.QueryAsync<Cover>(IGDBClient.Endpoints.Covers, query: $"fields *; where id = {game.Cover.Id};");
+            var cover = covers.FirstOrDefault();
+            if (cover != null)
+            {
+                coverUrl = cover.Url;
+                coverUrl = coverUrl.Replace("t_thumb", "t_cover_big");
+            }
+        }
+
+        return coverUrl;
+    }
+}

@@ -2,6 +2,12 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GamesTimeline", "GamesTimeline\GamesTimeline.csproj", "{03582EFF-99BB-4F55-91BA-DE50CA6B0455}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GamesTimeline.AzureFunctions", "GamesTimeline.AzureFunctions\GamesTimeline.AzureFunctions.csproj", "{8FA58B21-EC49-4A13-AB66-7942D7209A18}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GamesTimelineBlazor", "GamesTimelineBlazor\GamesTimelineBlazor\GamesTimelineBlazor.csproj", "{5B07B49C-0210-4124-BAE3-ACDE6376C1AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GamesTimelineBlazor.Client", "GamesTimelineBlazor\GamesTimelineBlazor.Client\GamesTimelineBlazor.Client.csproj", "{97612CB7-D711-416C-A33E-1DDB0E3D751C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +18,17 @@ Global
 		{03582EFF-99BB-4F55-91BA-DE50CA6B0455}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{03582EFF-99BB-4F55-91BA-DE50CA6B0455}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{03582EFF-99BB-4F55-91BA-DE50CA6B0455}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FA58B21-EC49-4A13-AB66-7942D7209A18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FA58B21-EC49-4A13-AB66-7942D7209A18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FA58B21-EC49-4A13-AB66-7942D7209A18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FA58B21-EC49-4A13-AB66-7942D7209A18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B07B49C-0210-4124-BAE3-ACDE6376C1AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B07B49C-0210-4124-BAE3-ACDE6376C1AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B07B49C-0210-4124-BAE3-ACDE6376C1AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B07B49C-0210-4124-BAE3-ACDE6376C1AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97612CB7-D711-416C-A33E-1DDB0E3D751C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97612CB7-D711-416C-A33E-1DDB0E3D751C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97612CB7-D711-416C-A33E-1DDB0E3D751C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97612CB7-D711-416C-A33E-1DDB0E3D751C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

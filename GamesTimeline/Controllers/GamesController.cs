@@ -27,8 +27,6 @@ public class GamesController : Controller
 
     public async Task<ActionResult> Index()
     {
-      //  var games = await _igdbClient.QueryAsync<Game>(IGDBClient.Endpoints.Games, query: $"fields *; where id = {358};");
-      //  var game = games.FirstOrDefault();
         var game = await GetRandomGameAsync();
         var game2 = await GetRandomGameAsync();
             
